@@ -9,6 +9,7 @@ from .serializers import HelloSerializer
 class HelloApiView(APIView):
     """Testing the APIView
     """
+    serializer_class = HelloSerializer
 
     def get(self,request,format=None):
         
@@ -20,13 +21,22 @@ class HelloApiView(APIView):
         return Response({'message': 'Hello', 'to_say':an_apiview})
 
     def post(self,request):
-        """ Create a hello message"""
-        serializer = serializer.HelloSerializer(data=request.data)
+        serializer = HelloSerializer(data=request.POST)
         if serializer.is_valid():
             name = serializer.data.get('name')
-            message = "Hello name"
-            return Response({'message': message})
-
+            message = "Hello {0}".format(name)
+            return Response({'message':message})
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+    def put(self,request,pk=None):
+        return Response({'message':'put'})
+
+    def patch(self,request,pk=None):
+        return Response({'message':'patch'})
+
+
+    def delete(self,request,pk=None):
+        return Response({'message':'delete'})
+
         
