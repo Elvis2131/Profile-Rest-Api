@@ -42,7 +42,7 @@ class HelloApiView(APIView):
         return Response({'message':'delete'})
 
 
-class HelloViewSet(viewsets.Viewset):
+class HelloViewSet(viewsets.ViewSet):
     """Testing API Viewset"""
 
     def list(self,request):
